@@ -44,8 +44,7 @@ func TempFile(dir string) (f *os.File, remove bool, err error) {
 		return f, err == nil, err
 	}
 
-	fd, err := unix.Open(dir,
-		unix.O_RDWR|unix.O_TMPFILE|unix.O_DIRECTORY|unix.O_CLOEXEC, 0600)
+	fd, err := unix.Open(dir, unix.O_RDWR|unix.O_TMPFILE|unix.O_CLOEXEC, 0600)
 
 	switch err {
 	case nil:
