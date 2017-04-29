@@ -32,7 +32,7 @@ var missingTMPFILE atomics.Bool
 // If remove is true, it is the caller's responsibility to remove the
 // file when no longer needed. In that case, the caller can use
 // f.Name() to find the pathname of the file. This will be true, if
-// the kernel or filesystem does not support O_TMPFILE, in which
+// the kernel or filesystem does not support O_TMPFILE. In this case,
 // ioutil.TempFile is used as a fallback,
 func TempFile(dir string) (f *os.File, remove bool, err error) {
 	if dir == "" {
