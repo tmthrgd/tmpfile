@@ -5,6 +5,7 @@
 package tmpfile
 
 import (
+	"io/ioutil"
 	"os"
 	"testing"
 )
@@ -27,5 +28,22 @@ func TestTempFile(t *testing.T) {
 		if err = os.Remove(f.Name()); err != nil {
 			t.Error(err)
 		}
+	}
+}
+
+func TestTempFileWithExistingFile(t *testing.T) {
+	f, err := ioutil.TempFile("", "")
+	if err != nil {
+		t.Error(err)
+	}
+	f.Close()
+	defer os.Remove(f.Name())
+
+	f, remove, err := TempFile(f.Name())
+	if f != nil || err == nil {
+		t.Errorf("TempFile(%+q) = %v, %v, %v", f.Name(), f, remove, err)
+	}
+	if f != nil {
+		f.Close()
 	}
 }
