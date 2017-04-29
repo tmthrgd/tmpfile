@@ -90,7 +90,7 @@ func Link(f *os.File, newpath string) error {
 		}
 	}
 
-	if r0&unix.O_TMPFILE == 0 {
+	if r0&unix.O_TMPFILE != unix.O_TMPFILE {
 		return os.Rename(f.Name(), newpath)
 	}
 
