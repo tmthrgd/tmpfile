@@ -95,6 +95,15 @@ func Link(f *os.File, newpath string) error {
 
 	err := unix.Linkat(unix.AT_FDCWD, f.Name(), unix.AT_FDCWD, newpath,
 		unix.AT_SYMLINK_FOLLOW)
+	if err != nil {
+		return &os.LinkError{
+			Op:  "link",
+			Old: f.Name(),
+			New: newpath,
+			Err: err,
+		}
+	}
+
 	runtime.KeepAlive(f)
-	return err
+	return nil
 }
